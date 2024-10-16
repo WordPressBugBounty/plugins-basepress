@@ -740,7 +740,9 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 			$this->do_settings_sections( 'basepress' );
 			echo '</div>';
 
-			submit_button( esc_html__( 'Save Settings', 'basepress' ) );
+			$attr_options = [];
+			$other_attributes = apply_filters( 'basepress_save_settings', $attr_options );
+			submit_button( esc_html__( 'Save Settings', 'basepress' ), 'primary', 'submit', true, $other_attributes );
 			echo '</form>';
 			echo '</div>';
 		}
