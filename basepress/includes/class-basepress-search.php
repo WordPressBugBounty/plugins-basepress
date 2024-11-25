@@ -601,8 +601,11 @@ if ( !class_exists( 'Basepress_Search' ) ) {
                 /*
                  * WHERE Clause
                  */
+                if ( !isset( $pieces['where'] ) && empty( $pieces['where'] ) ) {
+                    $pieces['where'] = '';
+                }
                 if ( !empty( $sections_ids ) ) {
-                    $pieces['where'] = " AND t.term_taxonomy_id IN ({$sections_ids})";
+                    $pieces['where'] .= " AND t.term_taxonomy_id IN ({$sections_ids})";
                 }
                 $pieces['where'] .= $wpdb->prepare( " AND ( LOWER({$wpdb->posts}.post_content) REGEXP '%s' OR LOWER({$wpdb->posts}.post_title) REGEXP '%s'", $multi_terms, $multi_terms );
                 $pieces['where'] .= " )";

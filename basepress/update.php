@@ -59,7 +59,7 @@ function basepress_update( $old_ver, $old_db_ver, $old_plan, $current_ver, $curr
 	}
 
 	//Flush rewrite rules on version update for possible changes to CPT
-	if( $old_ver != $current_ver && is_admin() && ! wp_doing_ajax() ){
+	if( $old_ver != $current_ver && ( is_admin() || current_user_can( 'update_plugins' ) ) && ! wp_doing_ajax() ){
 		add_action( 'shutdown', 'basepress_update_flush_rewrite_rules' );
 	}
 }
@@ -115,7 +115,12 @@ add_action( 'wp_ajax_basepress_db_posts_update', 'basepress_db_posts_update' );
  * @since 1.7.10
  */
 function basepress_update_script(){
-	wp_enqueue_script( 'basepress-update-script', BASEPRESS_URI . 'admin/js/basepress-update-script.js', array('jquery'), BASEPRESS_VER, true );
+	wp_register_script( 'basepress-update-script', BASEPRESS_URI . 'admin/js/basepress-update-script.js', array('jquery'), BASEPRESS_VER, true );
+	$params = array(
+		'nonce' => wp_create_nonce( 'update_nonce' ),
+	);
+	wp_localize_script( 'basepress-update-script', 'update', $params );
+	wp_enqueue_script( 'basepress-update-script' );
 }
 
 /**
@@ -163,6 +168,7 @@ function basepress_db_posts_update(){
 
 	header('Content-Type: application/json');
 
+	check_ajax_referer( 'update_nonce', 'security' );
 	$process = sanitize_text_field( wp_unslash( $_POST['process'] ) );
 	$data = sanitize_text_field( wp_unslash( $_POST['packet'] ) );
 	$transient = sanitize_text_field( wp_unslash( $_POST['transient'] ) );

@@ -68,7 +68,8 @@ jQuery( 'window' ).ready( function($){
 					action: 'basepress_db_posts_update',
 					process: process,
 					packet: packet,
-					transient: transient
+					transient: transient,
+					security: update.nonce
 				},
 				success: function( response ){
 					if( 'function' == typeof callBack ){
