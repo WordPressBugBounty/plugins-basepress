@@ -169,6 +169,9 @@ function basepress_db_posts_update(){
 	header('Content-Type: application/json');
 
 	check_ajax_referer( 'update_nonce', 'security' );
+	if ( ! current_user_can( 'update_plugins' ) ) {
+		wp_die();
+	}
 	$process = sanitize_text_field( wp_unslash( $_POST['process'] ) );
 	$data = sanitize_text_field( wp_unslash( $_POST['packet'] ) );
 	$transient = sanitize_text_field( wp_unslash( $_POST['transient'] ) );
