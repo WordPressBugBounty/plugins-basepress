@@ -4,7 +4,7 @@ Donate link: https://basepresskb.com/
 Tags: knowledge base, documentation, wiki, documents, docs
 Requires at least: 4.5
 Tested up to: 6.7.1
-Stable tag: 2.16.3.4
+Stable tag: 2.16.3.5
 Requires PHP: 5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -194,8 +194,8 @@ Customers of our Premium Version get full priority support for a year from the d
 3. Easy to use admin tools
 
 == Changelog ==
-= 2.16.3.3
-* Freemius SDK and other code improvements
+= 2.16.3.5
+* Freemius SDK and other code improvements. Fixed live search bug
 
 = 2.16.3
 * code improvements. Article listing should work faster on wp-admin in other post types now. 
