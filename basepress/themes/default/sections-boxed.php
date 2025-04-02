@@ -31,7 +31,6 @@ basepress_get_header( 'basepress' );
 		
 		<!-- Add searchbar -->
 		<div class="bpress-searchbar-wrap">	
-			<p><?php echo esc_html( $bpkb_knowledge_base->description ); ?></p>
 			<?php  basepress_searchbar(); ?>
 		</div>
 		

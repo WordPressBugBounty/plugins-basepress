@@ -470,7 +470,7 @@ function basepress_search_description() {
     global $basepress_utils;
     $bpkb_knowledge_base = basepress_kb();
     $options = $basepress_utils->get_options();
-    if ( isset( $options['show_search_description'] ) ) {
+    if ( isset( $options['show_search_description'] ) && $bpkb_knowledge_base->description != '' ) {
         echo "<p class='bpdescription'>";
         echo apply_filters( 'bp_search_description', esc_html( $bpkb_knowledge_base->description ) );
         echo "</p>";

@@ -4,7 +4,7 @@
  * Plugin Name: BasePress
  * Plug URI: https://basepresskb.com/
  * Description: The perfect Knowledge Base plugin for WordPress
- * Version: 2.17.0
+ * Version: 2.17.0.1
  * Author: codeSavory
  * Author URI: https://basepresskb.com/
  * Text Domain: basepress

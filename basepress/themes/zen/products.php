@@ -17,11 +17,6 @@ $bpkb_knowledge_bases = basepress_kbs();
 				<a class="bpress-product-link bpress-kb-link" href="<?php echo esc_url( $bpkb_knowledge_base->permalink ) ; ?>">
 					<img class="bpress-card-top-image" src="<?php echo esc_url( $bpkb_knowledge_base->image->url ) ; ?>">
 					<h3 class="bpress-card-title"><?php echo esc_html( $bpkb_knowledge_base->name ); ?></h3>
-					<?php if ( '' != $bpkb_knowledge_base->description ) : ?>
-						<div class="bpress-card-body">
-						<p><?php echo wp_kses_post( $bpkb_knowledge_base->description ) ; ?></p>
-						</div>
-					<?php endif; ?>
 					<span class="bpress-card-footer"><?php echo esc_html( basepress_choose_kb_btn_text() ) ; ?></span>
 				</a>
 			</div>

@@ -25,7 +25,6 @@ basepress_get_header( 'basepress' );
 				<h1><?php echo esc_html( apply_filters( 'basepress_modern_theme_header_title', 'Knowledge Base' ) ); ?><br>
 				<?php echo ( esc_html( $bpkb_is_single_kb ) ? '' : esc_html( $bpkb_knowledge_base->name ) ); ?>
 				</h1>
-				<p><?php echo wp_kses_post( $bpkb_knowledge_base->description ) ; ?></p>
 			</header>
 
 			<!-- Add searchbar -->
