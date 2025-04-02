@@ -74,9 +74,8 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 					$this->redirect_to_wizard();
 				}
 				//Add top level menu and 'Settings' submenu on admin screen
-				add_menu_page( 'BasePress ' . esc_html__( 'Settings', 'basepress' ), 'BasePress', 'manage_options', 'basepress', '', 'none' );
+				add_menu_page( 'BasePress ' . esc_html__( 'Settings', 'basepress' ), 'BasePress', 'manage_options', 'basepress', '', 4 );
 				add_submenu_page( 'basepress', 'BasePress ' . esc_html__( 'Settings', 'basepress' ), esc_html__( 'Settings', 'basepress' ), 'manage_options', 'basepress', array( $this, 'display_screen' ) );
-
 				//Initialize the administration settings with WP settings API
 				add_action( 'admin_init', array( $this, 'settings_init' ) );
 			}
@@ -150,10 +149,13 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 			add_settings_field( 'section_post_limit', esc_html__( 'Limit Articles count on single section page', 'basepress' ), array( $this, 'section_post_limit_render' ), 'basepress', 'basepress_theme_settings' );
 			add_settings_field( 'show_section_icon', esc_html__( 'Show Section Icons', 'basepress' ), array( $this, 'show_section_icon_render' ), 'basepress', 'basepress_theme_settings' );
 			add_settings_field( 'show_post_icon', esc_html__( 'Show Articles Icons', 'basepress' ), array( $this, 'show_post_icon_render' ), 'basepress', 'basepress_theme_settings' );
+			add_settings_field( 'show_byline', esc_html__( 'Show Article byline', 'basepress' ), array( $this, 'show_byline_render' ), 'basepress', 'basepress_theme_settings' );
 			add_settings_field( 'show_section_post_count', esc_html__( 'Show Articles count on Sections', 'basepress' ), array( $this, 'show_section_post_count_render' ), 'basepress', 'basepress_theme_settings' );
 			add_settings_field( 'posts_orderby', esc_html__( 'Articles Order', 'basepress' ), array( $this, 'posts_orderby_render' ), 'basepress', 'basepress_theme_settings' );
 
 			//Add settings fields for BREADCRUMBS settings
+
+			add_settings_field( 'enable_breadcrumbs', esc_html__( 'Enable Breadcrumbs', 'basepress' ), array( $this, 'showhide_breadcrumbs_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
 			add_settings_field( 'breadcrumbs_kb_name', esc_html__( 'Breadcrumbs name', 'basepress' ), array( $this, 'breadcrumbs_kb_name_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
 			add_settings_field( 'breadcrumbs_include_home', esc_html__( 'Include Home link', 'basepress' ), array( $this, 'breadcrumbs_include_home_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
 			add_settings_field( 'breadcrumbs_home_text', esc_html__( 'Text for Home link', 'basepress' ), array( $this, 'breadcrumbs_home_text_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
@@ -168,6 +170,7 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 			add_settings_field( 'search_field_placeholder', esc_html__( 'Search field placeholder', 'basepress' ), array( $this, 'search_field_placeholder_render' ), 'basepress', 'basepress_search_settings' );
 			add_settings_field( 'search_submit_text', esc_html__( 'Submit button text', 'basepress' ), array( $this, 'search_submit_text_render' ), 'basepress', 'basepress_search_settings' );
 			add_settings_field( 'show_search_submit', esc_html__( 'Show search submit button', 'basepress' ), array( $this, 'show_search_submit_render' ), 'basepress', 'basepress_search_settings' );
+			add_settings_field( 'show_search_description', esc_html__( 'Show search description', 'basepress' ), array( $this, 'show_search_description_render' ), 'basepress', 'basepress_search_settings' );
 			add_settings_field( 'search_page_title', esc_html__( 'Search result page title', 'basepress' ), array( $this, 'search_page_title_render' ), 'basepress', 'basepress_search_settings' );
 			add_settings_field( 'search_page_no_results_title', esc_html__( "'No search result found' page title", 'basepress' ), array( $this, 'search_page_no_results_title_render' ), 'basepress', 'basepress_search_settings' );
 			add_settings_field( 'smartsearch_no_results_message', esc_html__( "'No search result found' message for live search", 'basepress' ), array( $this, 'smartsearch_no_results_message_render' ), 'basepress', 'basepress_search_settings' );
@@ -283,7 +286,7 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 		*/
 
 		public function theme_style_render() {
-			$unique_themes = array();
+			$unique_themes = apply_filters('bp_unique_themes',array());
 			$base_theme_dir = get_stylesheet_directory() . '/basepress/';
 			$uploads_theme_dir = wp_upload_dir()['basedir'] . '/basepress/';
 			$plugin_theme_dir = BASEPRESS_DIR . 'themes/';
@@ -321,7 +324,7 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 					preg_match( '/Theme Name:\s*(.+)/i', $theme_css, $theme_name );
 					$selected = selected( $theme_dir, $set_theme, false );
 
-					echo '<option value="' . esc_attr( $theme_dir ) . '"' . esc_html( $selected ) . '>' . esc_html( $theme_name[1] ) . '</option>';
+					echo '<option value="' . esc_attr( $theme_dir ) . '"' . esc_html( $selected ) . '>' . esc_html( $theme_dir ) . '</option>';
 					$unique_themes[] = $theme_dir;
 				}
 			}
@@ -425,6 +428,13 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 			echo '<input type="checkbox" name="basepress_settings[show_post_icon]" value="1"' . checked( $value, 1, false ) . '>';
 		}
 
+		public function show_byline_render() {
+			$options = $this->options;
+
+			$value = isset( $options['show_byline'] ) ? 1 : 0;
+			echo '<input type="checkbox" name="basepress_settings[show_byline]" value="1"' . checked( $value, 1, false ) . '>';
+		}
+
 		public function show_section_post_count_render() {
 			$options = $this->options;
 
@@ -455,6 +465,14 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 			echo '<input type="text" name="basepress_settings[breadcrumbs_kb_name]" value="' . esc_attr( $name ) . '">';
 			echo '<p class="description">' . esc_html__( 'This is the name used in the breadcrumbs for the knowledge base entry page.', 'basepress' ) . '</p>';
 		}
+
+		public function showhide_breadcrumbs_render(){
+			$options = $this->options;
+
+			$value = isset( $options['showhide_breadcrumbs'] ) ? 1 : 0;
+			echo '<input type="checkbox" name="basepress_settings[showhide_breadcrumbs]" value="1"' . checked( $value, 1, false ) . '>';
+		}
+
 
 		public function breadcrumbs_include_home_render(){
 			$options = $this->options;
@@ -523,6 +541,14 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 
 			$value = isset( $options['show_search_submit'] ) ? 1 : 0;
 			echo '<input type="checkbox" name="basepress_settings[show_search_submit]" value="1"' . checked( $value, 1, false ) . '>';
+		}
+
+		public function show_search_description_render() {
+			$options = $this->options;
+
+			$value = isset( $options['show_search_description'] ) ? 1 : 0;
+			
+			echo '<input type="checkbox" name="basepress_settings[show_search_description]" value="1"'.checked( $value, 1, false ) . '>';
 		}
 
 		public function search_submit_text_render() {

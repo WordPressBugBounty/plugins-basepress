@@ -19,7 +19,7 @@ basepress_get_header( 'basepress' );
 
 			<!-- Add searchbar -->
 			<div class="bpress-searchbar-wrap">
-				<?php basepress_searchbar(); ?>
+				<?phP	basepress_searchbar(); ?>
 			</div>
 		</div>
 

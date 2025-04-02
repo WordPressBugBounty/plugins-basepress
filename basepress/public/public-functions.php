@@ -189,13 +189,33 @@ function basepress_article_tags(  $before = '', $sep = ', ', $after = ''  ) {
 /**
  * Gets breadcrumbs
  *
- * @since 1.0.0
+ * @since 2.17
  *
  * @return mixed
  */
 function basepress_breadcrumbs() {
     global $basepress_utils;
-    return $basepress_utils->get_breadcrumbs();
+    $bpbreadcrumbs = $basepress_utils->is_breadcrumbs_enabled();
+    if ( $bpbreadcrumbs ) {
+        return $basepress_utils->get_breadcrumbs();
+    }
+}
+
+/**
+ * Gets bylines
+ *
+ * @since 2.17
+ *
+ * @return mixed
+ */
+function basepress_byline() {
+    global $basepress_utils;
+    $show_byline = $basepress_utils->get_option( 'show_byline' );
+    if ( $show_byline ) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -438,7 +458,23 @@ function basepress_post_pagination() {
  */
 function basepress_searchbar() {
     global $basepress_search;
+    basepress_search_description();
     $basepress_search->render_searchbar();
+}
+
+/*
+*
+* Calls the render function for search description
+*/
+function basepress_search_description() {
+    global $basepress_utils;
+    $bpkb_knowledge_base = basepress_kb();
+    $options = $basepress_utils->get_options();
+    if ( isset( $options['show_search_description'] ) ) {
+        echo "<p class='bpdescription'>";
+        echo apply_filters( 'bp_search_description', esc_html( $bpkb_knowledge_base->description ) );
+        echo "</p>";
+    }
 }
 
 /**

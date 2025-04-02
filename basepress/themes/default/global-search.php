@@ -3,6 +3,9 @@
  *	This is the archive page for global search results.
  */
 
+//Get Knowledge Base object
+
+$bpkb_knowledge_base = basepress_kb();
 
 //Get the class for displaying the sidebar
 $bpkb_sidebar_position = basepress_sidebar_position( true );
@@ -30,7 +33,9 @@ basepress_get_header( 'basepress' );
 
 			<!-- Add searchbar -->
 			<div class="bpress-searchbar-wrap">
-				<?php basepress_searchbar(); ?>
+				
+				<?php 
+				basepress_searchbar(); ?>
 			</div>
 
 			<main class="bpress-main" role="main">
@@ -62,7 +67,11 @@ basepress_get_header( 'basepress' );
 									<p class="bpress-search-excerpt"><?php basepress_search_post_snippet(); ?></p>
 								</a>
 
-								<?php if( 'knowledgebase' == get_post_type() ) { ?>
+								<?php 
+
+								
+
+								if( 'knowledgebase' == get_post_type() && basepress_byline()) { ?>
 									<!-- Post Meta -->
 									<div class="bpress-post-meta">
 										<?php $bpkb_post_metas = basepress_get_post_meta( get_the_ID() ); ?>
@@ -72,7 +81,8 @@ basepress_get_header( 'basepress' );
 											<span class="bpress-post-likes"><span class="<?php echo esc_attr( $bpkb_post_post_like_icon ) ; ?>"></span><?php echo esc_html( $bpkb_post_metas['votes']['like'] ) ; ?></span>
 											<span class="bpress-post-dislikes"><span class="<?php echo esc_attr( $bpkb_post_post_dislike_icon ) ; ?>"></span><?php echo esc_html( $bpkb_post_metas['votes']['dislike'] ) ; ?></span>
 										<?php } ?>
-										<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_post_date_icon ) ; ?>"></span><?php echo esc_html( get_the_modified_date() ) ; ?></span>
+										<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_post_date_icon ); ?>"></span><?php echo esc_html( get_the_date() ); ?></span>
+										<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_post_date_icon ); ?>"></span><?php echo esc_html( get_the_modified_date() ); ?></span>
 									</div>
 								<?php } ?>
 							</li>

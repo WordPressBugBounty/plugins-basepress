@@ -4,12 +4,13 @@ Donate link: https://basepresskb.com/
 Tags: knowledge base, documentation, wiki, documents, docs
 Requires at least: 4.5
 Tested up to: 6.7.1
-Stable tag: 2.16.3.6
-Requires PHP: 5.7
+Stable tag: 2.17.0
+Requires PHP: >=5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily create & manage documentation. Reduce support tickets & scale your customer support workload. This simple plugin works with any theme.
+
 
 == Description ==
 

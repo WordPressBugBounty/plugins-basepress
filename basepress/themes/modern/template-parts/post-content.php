@@ -4,6 +4,7 @@
  */
 
 //Get Post meta icons
+
 $bpkb_post_meta_icons = basepress_get_post_meta_icons();
 $bpkb_post_views_icon = isset( $bpkb_post_meta_icons[0] ) ? $bpkb_post_meta_icons[0] : '';
 $bpkb_post_post_like_icon = isset( $bpkb_post_meta_icons[1] ) ? $bpkb_post_meta_icons[1] : '';
@@ -15,7 +16,11 @@ $bpkb_post_post_date_icon = isset( $bpkb_post_meta_icons[3] ) ? $bpkb_post_meta_
 	<header class="bpress-post-header">
 		<h1><?php the_title(); ?></h1>
 
+		<?php
 
+
+		if( basepress_byline() ){
+		?>
 		<div class="bpress-post-meta">
 			<?php $bpkb_post_metas = basepress_get_post_meta( get_the_ID() ); ?>
 
@@ -27,8 +32,11 @@ $bpkb_post_post_date_icon = isset( $bpkb_post_meta_icons[3] ) ? $bpkb_post_meta_
 				<span class="bpress-post-dislikes"><span class="<?php echo esc_attr( $bpkb_post_post_dislike_icon ); ?>"></span><?php echo esc_html( $bpkb_post_metas['votes']['dislike'] ); ?></span>
 				<?php } ?>
 			<?php } ?>
+			<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_post_date_icon ); ?>"></span><?php echo esc_html( get_the_date() ); ?></span>
 			<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_post_date_icon ); ?>"></span><?php echo esc_html( get_the_modified_date() ); ?></span>
 		</div>
+		<?php 
+	} ?>
 	</header>
 
 	<?php

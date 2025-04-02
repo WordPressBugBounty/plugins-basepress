@@ -12,6 +12,7 @@ $bpkb_content_classes = $bpkb_show_sidebar ? ' show-sidebar' : '';
 
 //Get active theme header
 basepress_get_header( 'basepress' );
+
 ?>
 
 <!-- Main BasePress wrap -->
@@ -29,7 +30,8 @@ basepress_get_header( 'basepress' );
 
 			<!-- Add searchbar -->
 			<div class="bpress-searchbar-wrap">
-				<?php basepress_searchbar(); ?>
+				<?php 
+				basepress_searchbar(); ?>
 			</div>
 		</div>
 	</div>
@@ -49,6 +51,12 @@ basepress_get_header( 'basepress' );
 				<header class="bpress-post-header">
 					<h1><?php the_title(); ?></h1>
 
+					<?php
+
+					if( basepress_byline() ){
+
+					?>
+
 					<div class="bpress-post-meta">
 						<?php $bpkb_post_metas = basepress_get_post_meta( get_the_ID() ); ?>
 
@@ -57,8 +65,13 @@ basepress_get_header( 'basepress' );
 						<span class="bpress-post-likes"><span class="bp-thumbs-up"></span><?php echo esc_html( $bpkb_post_metas['votes']['like'] ) ; ?></span>
 						<span class="bpress-post-dislikes"><span class="bp-thumbs-down"></span><?php echo esc_html( $bpkb_post_metas['votes']['dislike'] ) ; ?></span>
 						<?php } ?>
+
+						<span class="bpress-post-date"><span class="bp-clock"></span><?php echo esc_html( get_the_date() ) ; ?></span>
 						<span class="bpress-post-date"><span class="bp-clock"></span><?php echo esc_html( get_the_modified_date() ) ; ?></span>
 					</div>
+					<?php
+
+					} ?>
 				</header>
 
 				<?php if ( basepress_show_restricted_teaser() ) { ?>

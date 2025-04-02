@@ -158,6 +158,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	font-weight: bold;
 }
 
+.bpress-searchbar-wrap p.bpdescription{
+	margin-bottom: 30px;
+}
+
 
 .bpress-heading.show-icon{
 	padding-left: 1.5em;

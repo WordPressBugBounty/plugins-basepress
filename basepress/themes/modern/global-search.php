@@ -3,7 +3,6 @@
  *	This is the archive page for global search results.
  */
 
-
 $bpkb_sidebar_position = basepress_sidebar_position( true );
 $bpkb_show_sidebar = is_active_sidebar( 'basepress-sidebar' ) && $bpkb_sidebar_position != 'none';
 $bpkb_content_classes = $bpkb_show_sidebar ? ' show-sidebar' : '';
@@ -78,7 +77,12 @@ basepress_get_header( 'basepress' );
 										<?php	$bpkb_post_section = get_the_terms( get_the_ID(), 'knowledgebase_cat' )[0];
 										if( ! empty( $bpkb_post_section ) && ! is_wp_error( $bpkb_post_section ) ){	?>
 											<a href="<?php echo esc_url( get_term_link( $bpkb_post_section ) ); ?>" class="bpress-search-section"><?php echo esc_html( $bpkb_post_section->name ); ?></a>
-										<?php } ?>
+										<?php } 
+
+
+
+										if( basepress_byline() ){
+										?>
 										<div class="bpress-post-meta">
 											<?php $bpkb_post_metas = basepress_get_post_meta( get_the_ID() ); ?>
 
@@ -87,9 +91,12 @@ basepress_get_header( 'basepress' );
 											<span class="bpress-post-likes"><span class="<?php echo esc_attr( $bpkb_post_like_icon ); ?>"></span><?php echo esc_html( $bpkb_post_metas['votes']['like'] ) ; ?></span>
 											<span class="bpress-post-dislikes"><span class="<?php echo esc_attr( $bpkb_post_dislike_icon ); ?>"></span><?php echo esc_html( $bpkb_post_metas['votes']['dislike'] ) ; ?></span>
 											<?php } ?>
-											<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_date_icon ); ?>"></span><?php echo esc_html( get_the_modified_date() ) ; ?></span>
+											<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_post_date_icon ); ?>"></span><?php echo esc_html( get_the_date() ); ?></span>
+										<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_post_date_icon ); ?>"></span><?php echo esc_html( get_the_modified_date() ); ?></span>
 										</div>
-									<?php } ?>
+									<?php } 
+									}
+									?>
 								</li>
 
 							<?php	} //End while ?>

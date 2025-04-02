@@ -12,6 +12,7 @@ $bpkb_content_classes = $bpkb_show_sidebar ? ' show-sidebar' : '';
 
 
 //Get active theme header
+
 basepress_get_header( 'basepress' );
 ?>
 
@@ -32,7 +33,8 @@ basepress_get_header( 'basepress' );
 		
 		<!-- Add searchbar -->
 		<div class="bpress-searchbar-wrap">	
-			<?php basepress_searchbar(); ?>
+			<?php 
+			basepress_searchbar(); ?>
 		</div>
 		
 		<!-- Add main content -->

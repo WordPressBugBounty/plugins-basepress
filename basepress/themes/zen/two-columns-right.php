@@ -27,7 +27,8 @@ basepress_get_header( 'basepress' );
 		
 		<!-- Add searchbar -->
 		<div class="bpress-card">
-			<?php basepress_searchbar(); ?>
+			<?php 
+			basepress_searchbar(); ?>
 		</div>
 
 		<!-- Add main content -->

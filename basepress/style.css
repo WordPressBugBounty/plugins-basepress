@@ -768,6 +768,10 @@ input.basepress-tab-switch{
 	content: '';
 }
 
+.bpress-search-shortcode p.bpdescription{
+	margin-bottom: 10px;
+}
+
 .basepress-feedback{
 	position: relative;
 	margin: 0 0 10px;

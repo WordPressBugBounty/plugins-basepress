@@ -813,7 +813,12 @@ if ( !class_exists( 'Basepress_Search' ) ) {
             }
             $width = ( isset( $a['width'] ) && $a['width'] ? ' style="max-width:' . $a['width'] . '"' : '' );
             ob_start();
-            echo '<div class="bpress-search-shortcode"' . esc_attr( $width ) . '>';
+            $bpkb_knowledge_base = basepress_kb();
+            echo '<div class="bpress-search-shoOrtcode"' . esc_attr( $width ) . '>';
+            echo "<h2>" . esc_html( $bpkb_knowledge_base->name ) . "</h2>";
+            echo "<p class='bpdescription'>";
+            basepress_search_description();
+            echo "</p>";
             $this->render_searchbar( $kb_term );
             echo '</div>';
             return ob_get_clean();

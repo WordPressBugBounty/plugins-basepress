@@ -34,7 +34,8 @@ basepress_get_header( 'basepress' );
 
 			<!-- Add searchbar -->
 			<div class="bpress-searchbar-wrap">
-				<?php basepress_searchbar(); ?>
+				<?php 
+				basepress_searchbar(); ?>
 			</div>
 		</div>
 	</div>
@@ -82,6 +83,13 @@ basepress_get_header( 'basepress' );
 									<?php	$bpkb_post_section = get_the_terms( get_the_ID(), 'knowledgebase_cat' )[0]; ?>
 									<a href="<?php echo esc_url( get_term_link( $bpkb_post_section ) ); ?>" class="bpress-search-section"><?php echo esc_html( $bpkb_post_section->name ); ?></a>
 
+									<?php
+
+									
+									if( basepress_byline() ){
+
+									?>
+
 									<div class="bpress-post-meta">
 										<?php $bpkb_post_metas = basepress_get_post_meta( get_the_ID() ); ?>
 
@@ -90,9 +98,12 @@ basepress_get_header( 'basepress' );
 											<span class="bpress-post-likes"><span class="<?php echo esc_attr( $bpkb_post_like_icon ); ?>"></span><?php echo esc_html( $bpkb_post_metas['votes']['like'] ) ; ?></span>
 											<span class="bpress-post-dislikes"><span class="<?php echo esc_attr( $bpkb_post_dislike_icon ); ?>"></span><?php echo esc_html( $bpkb_post_metas['votes']['dislike'] ) ; ?></span>
 										<?php } ?>
+										<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_date_icon ); ?>"></span><?php echo esc_html( get_the_date() ) ; ?></span>
 										<span class="bpress-post-date"><span class="<?php echo esc_attr( $bpkb_post_date_icon ); ?>"></span><?php echo esc_html( get_the_modified_date() ) ; ?></span>
 									</div>
-								<?php } ?>
+								<?php }
+								}
+								?>
 							</li>
 
 						<?php	} //End while ?>

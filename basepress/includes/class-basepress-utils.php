@@ -133,7 +133,15 @@ if ( ! class_exists( 'Basepress_Utils' ) ) {
 			$this->options = $options;
 		}
 
+		public function is_breadcrumbs_enabled(){
 
+			if(isset( $this->options['hide_breadcrumbs'] )){
+				return false;
+			}else{
+				return true;
+			}
+
+		}
 
 		/**
 		 * Loads the active theme functions.php if it exists
@@ -382,6 +390,39 @@ if ( ! class_exists( 'Basepress_Utils' ) ) {
 			$this->kb_slug = $kb_slug;
 			return $kb_slug;
 		}
+
+		/**
+		 * Gets the KB slug including parents pages if exists
+		 *
+		 * @since 2.6
+		 *
+		 * @return string
+		 */
+
+		public function get_kb_title( $refresh = false ){
+
+			if( ! $refresh && $this->kb_title ){
+				return $this->kb_title;
+			}
+
+			$entry_page = isset( $this->options['entry_page'] ) ? $this->options['entry_page'] : 0;
+
+			/**
+			 * Filters the entry page ID before use
+			 */
+			$entry_page = apply_filters( 'basepress_entry_page', $entry_page );
+
+			$parents = get_ancestors( $entry_page, 'page' );
+			$kb_title = get_post_field( 'post_title', $entry_page );
+
+			foreach( $parents as $parent ){
+				$parent_slug = get_post_field( 'post_title', $parent );
+				$kb_title = $parent_slug . '/' . $kb_slug;
+			}
+			$this->kb_title = $kb_title;
+			return $kb_title;
+		}
+
 
 
 		/**
@@ -654,7 +695,7 @@ if ( ! class_exists( 'Basepress_Utils' ) ) {
 		public function get_product( $term_id = '' ) {
 			global $wp_query;
 
-			if( empty( $term_id ) ){
+			if( empty( $term_id ) && !isset($_POST['form_key'])){
 
 				// If we already created the product we return the cached copy
 				if( $this->product ){
