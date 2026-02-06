@@ -3,8 +3,8 @@ Contributors: codesavory, freemius, wpamitkumar
 Donate link: https://basepresskb.com/
 Tags: knowledge base, documentation, wiki, documents, docs
 Requires at least: 4.5
-Tested up to: 6.7.1
-Stable tag: 2.17.0.1
+Tested up to: 6.9
+Stable tag: 2.17.0.2
 Requires PHP: >=5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -195,83 +195,36 @@ Customers of our Premium Version get full priority support for a year from the d
 3. Easy to use admin tools
 
 == Changelog ==
-= 2.16.3.5
-* Freemius SDK and other code improvements. Fixed live search bug
+= 2.17.0.2
+* Code improvement and bug fixes. 
 
-= 2.16.3
+= 2.16
 * code improvements. Article listing should work faster on wp-admin in other post types now. 
-
-= 2.16.2.2-5
-* Improved code quality
-
-= 2.16.1
 * Fixed Tags Compatibility with the classic editor and Fixed section option.
-
-= 2.16.0
 * Fixed tags and categories. 
 
-= 2.15.22 to 24
+= 2.15
 * Code improvements and PHP compatibility etc.
 
 = 2.15.21 =
-* Updated SDK
-
-= 2.15.20 =
-* Added filter Hook for BasePress Content Section area.
-
-= 2.15.18 =
-* Improving search, supporting umlauts now for docs
-
-= 2.15.17 =
+* Updated SDK (Freemius SDK updated to latest version)
+* Added filter hook for BasePress Content Section area
+* Improved search with umlaut support for docs
 * Bug fixes and minor improvements
-
-= 2.15.16 =
-* Bug fixes and minor improvements
-
-= 2.15.14 =
-* Freemius SDK Updated to latest version
-
-= 2.15.13 =
-* Bug fixes and minor improvements
-
-= 2.15.11 =
-* Bug fixes and minor improvements
-
-= 2.15.10 =
-* Bug fixes and minor improvements
-
-= 2.15.9 =
-* Further improvement of data sanitation & escaping
-
-= 2.15.8 =
-* Further improvement of data sanitation
-
-= 2.15.7 =
+* Improved data sanitation & escaping
 * Removed Contact Us form from free version
-* Improved data sanitation
-
-= 2.15.5 =
 * Fixed deprecated Gutenberg hook notice
-* Fixed sticky ToC overflow on mobile devices
-
-= 2.15.4 =
-* Fixed global tags page returning 404 page (Premium only)
+* Fixed sticky Table of Contents overflow on mobile devices
+* Fixed global tags page returning 404 (Premium only)
 * Removed conflicting style from Default theme
 * Updated translations
-
-
-= 2.15.3 =
-* Fixed notices not appearing if icons are not set (Premium only)
-* Added notice to use BasePress Migration tools in settings page
-* Updated global variable in themes
-
-= 2.15.2 =
-* Prevent widgets preview in new Widgets block editor
-* Fixed Table of Content highlighting not working when more than 10 items are present (Premium only)
-
-= 2.15.1 =
+* Fixed notices not appearing when icons are not set (Premium only)
+* Added notice to use BasePress Migration tools on settings page
+* Updated global variables in themes
+* Prevented widget previews in the new Widgets block editor
+* Fixed Table of Contents highlighting issue with more than 10 items (Premium only)
 * Fixed warning when running installation wizard on PHP 8
-* Tested WordPress 5.8 compatibility
+* Tested compatibility with WordPress 5.8
 
 = 2.15.0 =
 * Added links to copy hyperlinks to articles' headings (Premium only)

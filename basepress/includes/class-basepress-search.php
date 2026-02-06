@@ -814,7 +814,7 @@ if ( !class_exists( 'Basepress_Search' ) ) {
             $width = ( isset( $a['width'] ) && $a['width'] ? ' style="max-width:' . $a['width'] . '"' : '' );
             ob_start();
             $bpkb_knowledge_base = basepress_kb();
-            echo '<div class="bpress-search-shoOrtcode"' . esc_attr( $width ) . '>';
+            echo '<div class="bpress-search-shoOrtcode"' . esc_attr( $this->basepress_sanitize_width( $width ) ) . '>';
             echo "<h2>" . esc_html( $bpkb_knowledge_base->name ) . "</h2>";
             echo "<p class='bpdescription'>";
             basepress_search_description();
@@ -822,6 +822,23 @@ if ( !class_exists( 'Basepress_Search' ) ) {
             $this->render_searchbar( $kb_term );
             echo '</div>';
             return ob_get_clean();
+        }
+
+        /**
+         * Sanitizes the width attribute for the search bar shortcode
+         *
+         * @since 2.17.1
+         *
+         * @param $width
+         * @return string
+         */
+        public function basepress_sanitize_width( $width ) {
+            // Allow only valid CSS width values: 100px, 80%, 40vw, auto
+            if ( preg_match( '/^(auto|\\d+(px|%|vw|vh|em|rem))$/', trim( $width ) ) ) {
+                return $width;
+            }
+            // Fallback
+            return '100%';
         }
 
         /**

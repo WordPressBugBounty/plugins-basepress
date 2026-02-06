@@ -155,7 +155,7 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 
 			//Add settings fields for BREADCRUMBS settings
 
-			add_settings_field( 'enable_breadcrumbs', esc_html__( 'Enable Breadcrumbs', 'basepress' ), array( $this, 'showhide_breadcrumbs_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
+			add_settings_field( 'hide_breadcrumbs', esc_html__( 'Hide Breadcrumbs', 'basepress' ), array( $this, 'hide_breadcrumbs_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
 			add_settings_field( 'breadcrumbs_kb_name', esc_html__( 'Breadcrumbs name', 'basepress' ), array( $this, 'breadcrumbs_kb_name_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
 			add_settings_field( 'breadcrumbs_include_home', esc_html__( 'Include Home link', 'basepress' ), array( $this, 'breadcrumbs_include_home_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
 			add_settings_field( 'breadcrumbs_home_text', esc_html__( 'Text for Home link', 'basepress' ), array( $this, 'breadcrumbs_home_text_render' ), 'basepress', 'basepress_breadcrumbs_settings' );
@@ -466,11 +466,11 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 			echo '<p class="description">' . esc_html__( 'This is the name used in the breadcrumbs for the knowledge base entry page.', 'basepress' ) . '</p>';
 		}
 
-		public function showhide_breadcrumbs_render(){
+		public function hide_breadcrumbs_render(){
 			$options = $this->options;
 
-			$value = isset( $options['showhide_breadcrumbs'] ) ? 1 : 0;
-			echo '<input type="checkbox" name="basepress_settings[showhide_breadcrumbs]" value="1"' . checked( $value, 1, false ) . '>';
+			$value = isset( $options['hide_breadcrumbs'] ) ? 1 : 0;
+			echo '<input type="checkbox" name="basepress_settings[hide_breadcrumbs]" value="1"' . checked( $value, 1, false ) . '>';
 		}
 
 

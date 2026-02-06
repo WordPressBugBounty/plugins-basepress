@@ -66,7 +66,7 @@ basepress_get_header( 'basepress' );
 						<?php } ?>
 
 						<span class="bpress-post-date"><span class="bp-clock"></span><?php echo esc_html( get_the_date() ) ; ?></span>
-						<span class="bpress-post-date"><span class="bp-clock"></span><?php echo esc_html( get_the_modified_date() ) ; ?></span>
+						<span class="bpress-post-date bpress-post-modified-date"><span class="bp-clock"></span><?php echo esc_html( get_the_modified_date() ) ; ?></span>
 					</div>
 					<?php
 
