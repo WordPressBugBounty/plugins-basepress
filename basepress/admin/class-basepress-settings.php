@@ -74,7 +74,7 @@ if ( ! class_exists( 'BasePress_Settings' ) ) {
 					$this->redirect_to_wizard();
 				}
 				//Add top level menu and 'Settings' submenu on admin screen
-				add_menu_page( 'BasePress ' . esc_html__( 'Settings', 'basepress' ), 'BasePress', 'manage_options', 'basepress', '', 4 );
+				add_menu_page( 'BasePress ' . esc_html__( 'Settings', 'basepress' ), 'BasePress', 'manage_options', 'basepress', '', 'none', 4 );
 				add_submenu_page( 'basepress', 'BasePress ' . esc_html__( 'Settings', 'basepress' ), esc_html__( 'Settings', 'basepress' ), 'manage_options', 'basepress', array( $this, 'display_screen' ) );
 				//Initialize the administration settings with WP settings API
 				add_action( 'admin_init', array( $this, 'settings_init' ) );

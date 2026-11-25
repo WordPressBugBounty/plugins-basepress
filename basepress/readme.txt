@@ -3,8 +3,8 @@ Contributors: codesavory, freemius, wpamitkumar
 Donate link: https://basepresskb.com/
 Tags: knowledge base, documentation, wiki, documents, docs
 Requires at least: 4.5
-Tested up to: 7.0.3
-Stable tag: 2.17.0.3
+Tested up to: 7.1.5
+Stable tag: 2.17.1
 Requires PHP: >=5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -195,7 +195,13 @@ Customers of our Premium Version get full priority support for a year from the d
 3. Easy to use admin tools
 
 == Changelog ==
-= 2.17.0.3
+= 2.17.1
+* Code improvement and bug fixes. 
+= 2.17.0.4
+* Security: Added capability and nonce verification across knowledge base, section, post order, wizard, insight, restriction preset, feedback, icons manager, and theme settings AJAX handlers.
+* Security: Hardened SQL queries with prepared statements and replaced direct unserialize() with maybe_unserialize().
+
+= 2.17.0.2
 * Code improvement and bug fixes. 
 
 = 2.16

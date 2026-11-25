@@ -1,0 +1,418 @@
+/* Insight */
+
+.update-nag{
+	display: none;
+}
+
+.insight-wrap *{
+	box-sizing: border-box;
+}
+
+.insight-wrap button{
+	outline:none;
+}
+
+.row{
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.col{
+	flex: 1;
+	margin: 0 10px 10px 0;
+	flex-basis: 350px;
+}
+
+.col-1{
+	width: 100%;
+}
+
+.col-2{
+	width: 50%;
+}
+
+.col-3{
+	width: 33.333%;
+}
+
+.col-4{
+	width: 25%;
+}
+
+
+.insight-tools{
+	width: 300px;
+	float: left;
+	margin-right: 10px;
+}
+
+.insight-tools .insight-card{
+	margin-bottom: 10px;
+}
+
+#views-score-cards,
+#searches-cards{
+	display: none;
+}
+
+#views-score-cards.selected,
+#searches-cards.selected{
+	display: block;
+}
+
+.insight-cards{
+	width: calc( 100% - 310px);
+	float: left;
+}
+
+.insight-card{
+	height: 100%;
+	padding: 15px;
+	background-color: #fff;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.insight-card-scroll{
+	height: 500px;
+	overflow-y: hidden;
+}
+
+.insight-data-container{
+	position: relative;
+	height: calc(100% - 33px);
+	overflow-y: auto;
+}
+
+.insight-data-container:after,
+#insight-visits-container:after,
+#insight-search-container.updating:after{
+	display: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	content: '';
+	background-color: rgba(255,255,255,0.7);
+}
+
+.insight-data-container.updating:after,
+#insight-visits-container.updating:after,
+#insight-search-container.updating:after{
+	display: block;
+}
+
+h2.insight-card-title {
+	position: relative;
+	padding: 0 3em 0 0;
+	margin: 0 0 15px;
+	font-size: 15px;
+	text-transform: uppercase;
+}
+
+h2.insight-card-title span{
+	position: absolute;
+	right: 1.25em;
+}
+
+#insight-date-rage{
+	position: relative;
+}
+
+#date-range-presets{
+	margin-bottom: 10px;
+}
+
+#insight-views-scores{
+	text-align: center;
+}
+
+#insight-date-rage button,
+#insight-views-scores button{
+	margin: 0;
+	padding: 5px 15px;
+	border: 0;
+	border-radius: 50px;
+	color: white;
+	background-color: #e91e61;
+	cursor: pointer;
+}
+
+#insight-views-scores button{
+	background-color: #b3b3b3;
+}
+
+button#insight-apply-date,
+#insight-views-scores button.selected{
+	background-color: #02bcd5;
+}
+
+#insight-manage-logs{
+	cursor: pointer;
+}
+
+#insight-manage-logs-container{
+	display: none;
+	background-color: #eee;
+	padding: 10px;
+}
+
+#insight-manage-logs-container h3{
+	margin-top: 0;
+}
+
+#insight-manage-logs-container .spinner{
+	float: none;
+	margin: 0 0 2px 5px;
+}
+
+#insight-from-date,
+#insight-to-date,
+#insight-delete-from-date,
+#insight-delete-to-date{
+	width: 7em;
+	border-width: 0 0 1px;
+	box-shadow: none;
+	font-size: larger;
+	background-color: transparent;
+}
+
+.ui-datepicker{
+	display: none;
+	width: 216px;
+	height: auto;
+	padding: 15px;
+	background: white;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+.ui-datepicker-header {
+	background-color: #02bcd5;
+	margin: -15px -15px 0;
+	padding: 10px 15px;
+}
+
+.ui-datepicker a {
+	text-decoration: none;
+}
+
+.ui-datepicker table {
+	width: 100%;
+}
+
+.ui-datepicker-title {
+	text-align: center;
+}
+
+.ui-datepicker-prev, .ui-datepicker-next {
+	display: inline-block;
+	width: 20px;
+	height: 23px;
+	text-align: center;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.ui-datepicker-prev {
+	float: left;
+}
+
+.ui-datepicker-next {
+	float: right;
+}
+
+.ui-datepicker-prev:before,
+.ui-datepicker-next:before{
+	display: inline;
+	font-family: 'dashicons';
+	font-size: 20px;
+	color: #fff;
+	vertical-align: middle;
+}
+
+.ui-datepicker-prev:before{
+	content: "\f341";
+}
+
+.ui-datepicker-next:before{
+	content: "\f345";
+}
+
+.ui-datepicker-month,
+.ui-datepicker-year{
+	height: 20px !important;
+	line-height: 20px !important;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	color: #fff;
+}
+
+.ui-datepicker thead{
+	color: #999;
+}
+
+.ui-datepicker-calendar .ui-state-default{
+	display: block;
+	padding: 2px 4px;
+	text-align: center;
+	color: black;
+	border-radius: 4px;
+}
+
+.ui-datepicker-calendar .ui-state-default:hover,
+.ui-datepicker-calendar .ui-state-active{
+	color: white;
+	background-color: #02bcd5;
+}
+
+.ui-datepicker-calendar .ui-state-disabled .ui-state-default{
+	color: #ddd;
+}
+
+.ui-datepicker-calendar .ui-state-disabled .ui-state-default:hover{
+	background-color: transparent;
+}
+
+.product-selection{
+	display: block;
+	margin: 2px 0;
+	padding: 10px;
+	border: 1px solid #eee;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.product-selection.selected,
+.product-selection.selected:hover{
+	border: 1px solid #02bcd5;
+	background-color: #02bcd5;
+	color: white;
+}
+
+.product-selection:hover{
+	border: 1px solid #eee;
+	background-color: #eee;
+	color: inherit;
+}
+
+#insight-visits-container,
+#insight-search-container{
+	position: relative;
+	width: 100%;
+	height: calc( 100% - 40px);
+}
+
+#insight-visits-chart,
+#insight-search-chart{
+	height: 500px;
+}
+
+.insight-article-list,
+.insight-searches-list{
+	width: 100%;
+	margin: 0;
+	padding: 1px 0;
+}
+
+.insight-article-list li,
+.insight-searches-list li{
+	margin: -1px 0 0;
+	padding: 2px 4px;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.insight-article-list li:nth-child(odd),
+.insight-searches-list li:nth-child(odd){
+	background-color: #fafafa;
+}
+
+.insight-article-list li>div:nth-child(odd),
+.insight-searches-list li>div:nth-child(odd){
+	float: left;
+	width: calc(100% - 5.5em);
+}
+
+.insight-article-list li>div:nth-child(even),
+.insight-searches-list li>div:nth-child(even){
+	float: left;
+	width: 5.5em;
+}
+
+.insight-article-list li a,
+.insight-search-list a{
+	text-decoration: none;
+	font-size: 1.1em;
+}
+
+.insight-search-query{
+	font-size: 1.1em;
+}
+
+.insight-post-views,
+.insight-post-views-time-range,
+.insight-post-score,
+.insight-search-hits{
+	min-width: 4em;
+	padding: 0 5px;
+	border-radius: 1em;
+	text-align: center;
+	color: white;
+	background-color: #02bcd5;
+	float: right;
+}
+
+.insight-post-votes{
+	margin-right: 5px;
+	float: right;
+}
+
+.insight-post-votes *{
+	width: auto;
+	height: 1em;
+	font-size: 10px;
+	line-height: 10px;
+	vertical-align: text-bottom;
+}
+
+.insight-post-like .dashicons{
+	color: green;
+}
+
+.insight-post-dislike .dashicons{
+	margin-left: 5px;
+	color: red;
+}
+
+span.article-product a,
+span.article-section a,
+span.search-product a{
+	color: #8c8c8c;
+	font-size: smaller;
+	text-decoration: none;
+}
+
+.article-product span,
+.article-section span,
+.search-product span{
+	font-size: inherit;
+	line-height: inherit;
+	height: inherit;
+	vertical-align: middle;
+	text-align: center;
+	color: #8c8c8c;
+}
+
+@media (max-width: 789px){
+	.insight-tools{
+		width: calc(100% - 10px);
+		float: none;
+	}
+	.insight-cards{
+		width: 100%;
+	}
+}

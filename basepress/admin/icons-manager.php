@@ -149,9 +149,22 @@ if( ! class_exists( 'basepress_icons_manager' ) ){
 		public function basepress_load_icons(){
 			header('Content-type: application/json');
 
+			if ( ! current_user_can( 'manage_options' ) ) {
+				status_header( 403 );
+				echo wp_json_encode( array( 'error' => esc_html__( 'You do not have permission to perform this action.', 'basepress' ) ) );
+				wp_die();
+			}
+
+			$form = isset( $_POST['form'] ) && is_array( $_POST['form'] ) ? $_POST['form'] : array(); // phpcs:ignore
+			if ( ! isset( $form['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $form['nonce'] ) ), 'bp-icon-nonce' ) ) {
+				status_header( 403 );
+				echo wp_json_encode( array( 'error' => esc_html__( 'Nonce authentication issue.', 'basepress' ) ) );
+				wp_die();
+			}
+
 			global $basepress_utils;
 
-			$get_saved_icons = $_POST['get-saved-icons'] == 'true';
+			$get_saved_icons = isset( $_POST['get-saved-icons'] ) && 'true' === $_POST['get-saved-icons'];
 			$icons_html = '';
 			$error = false;
 
@@ -343,6 +356,12 @@ if( ! class_exists( 'basepress_icons_manager' ) ){
 		public function basepress_save_icons_option(){
 			header('Content-type: application/json');
 
+			if ( ! current_user_can( 'manage_options' ) ) {
+				status_header( 403 );
+				echo wp_json_encode( array( 'error' => esc_html__( 'You do not have permission to perform this action.', 'basepress' ) ) );
+				wp_die();
+			}
+
 			global $basepress_utils;
 
 			$icons_sets = $this::$icon_sets;
@@ -400,6 +419,18 @@ if( ! class_exists( 'basepress_icons_manager' ) ){
 		 */
 		public function basepress_restore_default_icons(){
 			header('Content-type: application/json');
+
+			if ( ! current_user_can( 'manage_options' ) ) {
+				status_header( 403 );
+				echo wp_json_encode( array( 'error' => esc_html__( 'You do not have permission to perform this action.', 'basepress' ) ) );
+				wp_die();
+			}
+
+			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp-icon-nonce' ) ) {
+				status_header( 403 );
+				echo wp_json_encode( array( 'error' => esc_html__( 'Nonce authentication issue.', 'basepress' ) ) );
+				wp_die();
+			}
 
 			$old_option = get_option( 'basepress_icons_sets' );
 			$deleted = delete_option( 'basepress_icons_sets' );

@@ -1,0 +1,160 @@
+/* Shortcodes editor */
+#basepress-shortcodes-wrap.modal{
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: -25px;
+	background-color: rgba( 0,0,0,0.5);
+	overflow-y: auto;
+	z-index: 9999;
+}
+
+#basepress-shortcodes-wrap *{
+	box-sizing: border-box;
+}
+
+#basepress-shortcodes-wrap > .inner-wrap{
+	max-width: 800px;
+}
+
+#basepress-shortcodes-wrap.modal > .inner-wrap{
+	position: relative;
+	width: 800px;
+	top: 70px;
+	margin: 0 auto;
+	padding: 20px;
+	border-radius: 4px;
+	background-color: #e6e6e6;
+}
+
+#basepress-modal-close{
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	font-size: 30px;
+}
+
+#basepress-shortcodes-wrap label{
+	display: block;
+}
+
+#basepress-shortcodes-wrap input,
+#basepress-shortcodes-wrap select{
+	width: 100%;
+	margin-bottom: 5px;
+	background-color: white;
+	color: black;
+}
+
+/*
+ * TABS
+ */
+#basepress-sc-tabs:after{
+	display: block;
+	content: '	';
+	clear: both;
+}
+
+.basepress-sc-tab{
+	float: left;
+	margin-right: 2px;
+	padding: 7px 15px;
+	border: 1px solid #c4c4c4;
+	border-bottom: none;
+	border-radius: 6px 6px 0 0;
+	background: #ccc;
+	color: #555;
+	outline: none;
+	cursor: pointer;
+}
+
+.basepress-sc-tab.active,
+.basepress-sc-tab:hover{
+	background: #fff;
+	border-color: #ddd;
+	color: #000;
+}
+
+.basepress-sc-tab-content{
+	display: none;
+	margin: -1px 0 0;
+	padding: 2em;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 0 6px 6px;
+}
+
+.basepress-sc-tab-content.active{
+	display: block;
+}
+
+/* ARTICLES LIST */
+#basepress-sc-articles-form table{
+	table-layout: fixed;
+	width: 100%;
+	max-width: 800px;
+}
+
+#basepress-sc-articles-leftcol{
+	width: 200px;
+	padding-right: 15px;
+}
+
+#basepress-sc-articles-form table td{
+	vertical-align: top;
+}
+
+#basepress-sc-articles-form .spinner{
+	float: none;
+	margin: 0 5px;
+}
+
+#basepress-sc-articles-results{
+	height: 225px;
+	padding: 0 10px;
+	border: 1px solid #ddd;
+	background-color: white;
+	overflow: auto;
+}
+
+#basepress-sc-articles-results ul{
+	padding-left: 1.5em;
+	list-style-type: disc;
+}
+
+#basepress-sc-articles-results .bpress-article-list-item a{
+	text-decoration: none;
+}
+
+/* Notices */
+
+#basepress-sc-notices-list{
+	max-height: 360px;
+	margin-bottom: 10px;
+	padding: 2px;
+	overflow-y: auto;
+}
+
+#basepress-sc-notices-list .bpress-notice{
+	margin-top: 0;
+}
+
+#basepress-sc-notices-list .bpress-notice.selected{
+	border: 1px solid white;
+	box-shadow: 0 0 0 2px #000;
+}
+
+#basepress-sc-notices-shortcode{
+	width: 100%;
+	margin-bottom: 5px;
+	background-color: white;
+	color: black;
+}
+
+/* Search bar */
+
+#basepress-sc-searchbar-width{
+	max-width: 25rem;
+}

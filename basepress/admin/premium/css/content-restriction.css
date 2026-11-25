@@ -1,0 +1,161 @@
+/* Content Restriction */
+
+#basepress-new-product-user-roles,
+#basepress-edit-product-user-roles{
+	margin: 1em 0;
+}
+
+.basepress-select-restrictions,
+.basepress-deselect-restrictions,
+.basepress-edit-restriction-preset{
+	display: inline-block;
+	margin: 0 5px 5px 0 !important;
+}
+
+.basepress-save-restriction-preset{
+	margin-left: 5px;
+}
+
+.basepress-restriction-presets{
+	display: flex;
+}
+
+select.restriction-presets{
+	flex: 0 1 100%;
+}
+
+.basepress-restriction-roles{
+	position: relative;
+	max-width: 300px;
+	background-color: #fff;
+	overflow: auto;
+}
+
+.basepress-restriction-roles.term_metabox{
+	margin: 1em 0;
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+
+.basepress-restriction-role-list{
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+.basepress-restriction-role-list p{
+	margin: 0.5em 0;
+	padding: 0;
+}
+
+.basepress-restriction-presets-editor{
+	display: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 10px;
+	background: white;
+}
+
+.basepress-restriction-presets-editor label{
+	display: block;
+	width: 100%;
+}
+
+.new-preset-fields{
+	display: flex;
+}
+
+.new-preset-fields input[type="text"]{
+	flex: 1;
+}
+
+#new-preset-name,
+#new-preset-name-new-product,
+#new-preset-name-edit-product,
+#new-preset-name-new-section,
+#new-preset-name-edit-section{
+	width: 100%;
+}
+
+.restriction-preset-close{
+	text-align: right;
+}
+
+.presets-list{
+	margin-top: 10px;
+}
+
+.basepress_restriction_preset{
+	display: flex;
+	margin: 0 0 3px;
+	padding: 5px;
+	border-radius: 4px;
+	background: #eee;
+	line-height: 20px;
+}
+
+.basepress_restriction_preset .preset-actions{
+	margin-left: 0.5em;
+}
+
+.basepress_restriction_preset .preset-actions .dashicons{
+	display: none;
+}
+
+.basepress_restriction_preset:hover .preset-actions .dashicons{
+	display: inline-block;
+	font-weight: inherit;
+}
+
+.basepress_restriction_preset .preset-actions .dashicons:hover{
+	color: #019ce9;
+}
+
+.basepress_restriction_preset .preset-name{
+	flex: 1;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.basepress-preset-notice{
+	white-space: normal;
+}
+
+/* Ajax Loader */
+
+.preset-ajax-loader{
+	display: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.7);
+	z-index: 99999;
+}
+
+.preset-ajax-loader:before{
+	display: block;
+	position: absolute;
+	top: calc(50% - 12.5px);
+	left: calc(50% - 12.5px);
+	width: 25px;
+	height: 25px;
+	border: 3px solid #888;
+	border-top-color: #fff;
+	border-radius: 50%;
+	content:'';
+	animation: bs-loader 0.6s infinite linear;
+}
+
+@keyframes bs-loader{
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

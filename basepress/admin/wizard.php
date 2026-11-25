@@ -213,6 +213,7 @@ if ( ! class_exists( 'Basepress_Wizard' ) ){
 							<div id="wizard-response"></div>
 						</div>
 					</div>
+					<?php wp_nonce_field( 'bp-wizard-nonce', 'nonce' ); ?>
 				</form>
 
 				<button id="wizard-prev" class="button" disabled><?php esc_html_e( 'Previous', 'basepress' ); ?></button>
@@ -292,10 +293,26 @@ if ( ! class_exists( 'Basepress_Wizard' ) ){
 		 * @since 2.1.0
 		 */
 		public function basepress_wizard_proceed(){
+			if ( ! current_user_can( 'manage_options' ) ) {
+				status_header( 403 );
+				header( 'Content-type: application/json' );
+				echo wp_json_encode( array( 'error' => __( 'You do not have permission to perform this action.', 'basepress' ) ) );
+				wp_die();
+			}
+
 			global $wpdb;
 
 			$settings = array();
-			parse_str( $_POST['settings'] , $settings ); //phpcs:ignore
+			if ( isset( $_POST['settings'] ) ) {
+				parse_str( wp_unslash( $_POST['settings'] ), $settings ); //phpcs:ignore
+			}
+
+			if ( ! isset( $settings['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $settings['nonce'] ), 'bp-wizard-nonce' ) ) {
+				status_header( 403 );
+				header( 'Content-type: application/json' );
+				echo wp_json_encode( array( 'error' => __( 'Nonce authentication issue.', 'basepress' ) ) );
+				wp_die();
+			}
 			$shortcode = '[basepress]';
 			$block_placeholder = '<!-- wp:basepress-kb/products-block /-->';
 			$posts_with_shortcode = array();

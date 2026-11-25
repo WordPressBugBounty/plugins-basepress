@@ -422,14 +422,35 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 
 
 		/**
+		 * Verifies that the current user can manage knowledge base sections.
+		 *
+		 * @since 2.17.0.4
+		 */
+		private function verify_section_capability() {
+			if ( ! current_user_can( 'manage_categories' ) ) {
+				status_header( 403 );
+				header( 'Content-type: application/json' );
+				echo wp_json_encode(
+					array(
+						'error' => true,
+						'data'  => __( 'You do not have permission to perform this action.', 'basepress' ),
+					)
+				);
+				wp_die();
+			}
+		}
+
+		/**
 		 * Generates the section list to show on sections table
 		 *
 		 * @since 1.0.0
 		 */
 		public function basepress_get_section_list() {
+			$this->verify_section_capability();
+
 			global $wp_version;
-			$product = sanitize_text_field( wp_unslash( $_POST['product'] ) );
-			$section = sanitize_text_field( wp_unslash( $_POST['section'] ) );
+			$product = isset( $_POST['product'] ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : '0';
+			$section = isset( $_POST['section'] ) ? sanitize_text_field( wp_unslash( $_POST['section'] ) ) : '0';
 			$section_parent = 0 != $section ? $section : $product;
 
 			$parent_term = get_term( $section_parent, 'knowledgebase_cat' );
@@ -497,10 +518,27 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 		 * @since 1.0.0
 		 */
 		public function basepress_new_section() {
+			$this->verify_section_capability();
+
 			$form = array();
-			$product = sanitize_text_field( wp_unslash( $_POST['product'] ) );
-			$section = sanitize_text_field( wp_unslash( $_POST['section'] ) );
+			$product = isset( $_POST['product'] ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : '0';
+			$section = isset( $_POST['section'] ) ? sanitize_text_field( wp_unslash( $_POST['section'] ) ) : '0';
 			$parent = 0 != $section ? $section : $product;
+
+			//Extract the form data we received via ajax
+			if ( isset( $_POST['form'] ) ) {
+				parse_str( wp_unslash( $_POST['form'] ), $form ); // phpcs:ignore
+			}
+
+			//nonce verification
+			if ( ! isset( $form['nonce'] ) || ! wp_verify_nonce( $form['nonce'], 'bp-section-nonce' ) ) {
+				header( 'Content-type: application/json' );
+				echo wp_json_encode( array(
+					'error' => true,
+					'data'  => 'Nonce authentication issue',
+				));
+				wp_die();
+			}
 
 			//Get the section count. This value represents the position of the new section
 			$term_position = wp_count_terms( 'knowledgebase_cat', array(
@@ -511,19 +549,6 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 			//WP returns an empty array if there are no terms. In that case we set it to 0
 			if ( ! is_int( $term_position ) ) {
 				$term_position = 0;
-			}
-
-			//Extract the form data we received via ajax
-			parse_str( $_POST['form'], $form ); // phpcs:ignore
-
-			//nonce verification
-			if ( ! isset( $form['nonce'] ) || ! wp_verify_nonce( $form['nonce'], 'bp-section-nonce' ) ) {
-				header( 'Content-type: application/json' );
-				echo wp_json_encode( array(
-					'error' => true,
-					'data'  => 'Nonce authentication issue',
-				));
-				wp_die();
 			}
 
 			//Insert new term
@@ -603,6 +628,8 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 		 * @since 1.0.0
 		 */
 		public function basepress_delete_section() {
+			$this->verify_section_capability();
+
 			//nonce verification
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp-section-nonce' ) ) {
 				echo 'The section cannot be deleted';
@@ -610,7 +637,7 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 			}
 
 			//Get section id from ajax POST
-			$section_id = sanitize_text_field( wp_unslash( $_POST['section'] ) );
+			$section_id = isset( $_POST['section'] ) ? sanitize_text_field( wp_unslash( $_POST['section'] ) ) : '';
 
 			//Get the term for this section
 			$term = get_term( $section_id, 'knowledgebase_cat' );
@@ -645,10 +672,14 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 		 * @since 1.0.0
 		 */
 		public function basepress_update_section() {
+			$this->verify_section_capability();
+
 			$form = array();
 
 			//Extract the form data we received via ajax
-			parse_str( $_POST['form'], $form ); // phpcs:ignore
+			if ( isset( $_POST['form'] ) ) {
+				parse_str( wp_unslash( $_POST['form'] ), $form ); // phpcs:ignore
+			}
 
 			//nonce verification
 			if ( ! isset( $form['nonce'] ) || ! wp_verify_nonce( $form['nonce'], 'bp-section-nonce' ) ) {
@@ -761,6 +792,8 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 		 * @since 1.0.0
 		 */
 		public function basepress_get_section_data() {
+			$this->verify_section_capability();
+
 			//nonce verification
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp-section-nonce' ) ) {
 				echo 'The section cannot be edited';
@@ -768,7 +801,7 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 			}
 
 			//Get section id from ajax POST
-			$section_id = sanitize_text_field( wp_unslash( $_POST['section'] ) );
+			$section_id = isset( $_POST['section'] ) ? sanitize_text_field( wp_unslash( $_POST['section'] ) ) : '';
 
 			//Get the term for this section
 			$term = get_term( $section_id, 'knowledgebase_cat' );
@@ -839,6 +872,8 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 		* @since 1.0.0
 		*/
 		public function basepress_update_section_order() {
+			$this->verify_section_capability();
+
 			//nonce verification
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp-section-nonce' ) ) {
 				echo 'The section order cannot be Updated';
@@ -846,7 +881,7 @@ if ( ! class_exists( 'Basepress_Sections_Page' ) ) {
 			}
 
 			//Get the array of sections order
-			$order = $_POST['order']; // phpcs:ignore
+			$order = isset( $_POST['order'] ) && is_array( $_POST['order'] ) ? $_POST['order'] : array(); // phpcs:ignore
 
 			//Update the order of every section
 			foreach ( $order as $position => $term_id ) {

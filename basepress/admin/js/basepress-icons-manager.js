@@ -141,6 +141,7 @@ jQuery( 'window' ).ready( function($){
 				url: ajaxurl,
 				data:{
 					action: 'basepress_restore_default_icons',
+					nonce: $( '#icons-manager-data input[name="nonce"]' ).val(),
 				},
 
 

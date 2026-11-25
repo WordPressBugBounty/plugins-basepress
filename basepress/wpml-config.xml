@@ -1,0 +1,63 @@
+<wpml-config>
+	<custom-types>
+		<custom-type translate="1">knowledgebase</custom-type>
+	</custom-types>
+	<taxonomies>
+		<taxonomy translate="1">knowledgebase_cat</taxonomy>
+		<taxonomy translate="1">knowledgebase_tag</taxonomy>
+	</taxonomies>
+	<custom-term-fields>
+		<custom-term-field action="copy">basepress_position</custom-term-field>
+		<custom-term-field action="copy">icon</custom-term-field>
+		<custom-term-field action="copy">image</custom-term-field>
+		<custom-term-field action="copy">sections_style</custom-term-field>
+		<custom-term-field action="copy">visibility</custom-term-field>
+		<custom-term-field action="copy">basepress_restriction_roles</custom-term-field>
+	</custom-term-fields>
+	<custom-fields>
+		<custom-field action="ignore">basepress_votes</custom-field>
+		<custom-field action="ignore">basepress_votes_count</custom-field>
+		<custom-field action="ignore">basepress_score</custom-field>
+		<custom-field action="ignore">basepress_views</custom-field>
+		<custom-field action="copy">basepress_template_name</custom-field>
+		<custom-field action="copy">basepress_post_icon</custom-field>
+		<custom-field action="copy">basepress_restriction_roles</custom-field>
+	</custom-fields>
+	<admin-texts>
+		<key name="basepress_settings">
+			<key name="kbs_choose_text"/>
+			<key name="sections_view_all_text"/>
+			<key name="breadcrumbs_kb_name"/>
+			<key name="breadcrumbs_home_text"/>
+			<key name="search_field_placeholder"/>
+			<key name="search_submit_text"/>
+			<key name="search_page_title"/>
+			<key name="search_page_no_results_title"/>
+			<key name="smartsearch_no_results_message"/>
+			<key name="search_suggest_more_text"/>
+			<key name="tags_page_title"/>
+			<key name="tags_list_title"/>
+			<key name="voting_question"/>
+			<key name="voting_confirmation"/>
+			<key name="already_voted_notice"/>
+			<key name="feedback_form_lable"/>
+			<key name="feedback_email_field_label"/>
+			<key name="feedback_email_field_placeholder"/>
+			<key name="feedback_privacy_notice"/>
+			<key name="feedback_submit_text"/>
+			<key name="feedback_submit_success_text"/>
+			<key name="feedback_submit_fail_text"/>
+			<key name="toc_title"/>
+			<key name="toc_totop_text"/>
+			<key name="copy_anchors_links_copy_text"/>
+			<key name="copy_anchors_links_copied_text"/>
+			<key name="prev_article_text"/>
+			<key name="next_article_text"/>
+			<key name="restricted_page_notice"/>
+			<key name="restricted_search_snippet_notice"/>
+		</key>
+		<key name="basepress_modern_theme">
+			<key name="header_title"/>
+		</key>
+	</admin-texts>
+</wpml-config>

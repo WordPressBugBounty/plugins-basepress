@@ -176,6 +176,10 @@ if ( ! class_exists( 'Basepress_Section_Metabox' ) ) {
 		 * @since 1.0.0
 		 */
 		public function basepress_get_product_sections() {
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				status_header( 403 );
+				wp_die();
+			}
 
 			$product = isset( $_POST['product'] ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : '';
 			$value = 0;

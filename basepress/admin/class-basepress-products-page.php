@@ -379,20 +379,39 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 
 
 		/**
+		 * Verifies that the current user can manage knowledge bases.
+		 *
+		 * @since 2.17.0.4
+		 */
+		private function verify_product_capability() {
+			if ( ! current_user_can( 'manage_categories' ) ) {
+				status_header( 403 );
+				header( 'Content-type: application/json' );
+				echo wp_json_encode(
+					array(
+						'error' => true,
+						'data'  => __( 'You do not have permission to perform this action.', 'basepress' ),
+					)
+				);
+				wp_die();
+			}
+		}
+
+
+		/**
 			* Adds a new Product
 			*
 			* @since 1.0.0
 			*/
 		public function basepress_new_product() {
+			$this->verify_product_capability();
+
 			$form = array();
-			//Get the product quantity. This value represents the position of the new product
-			$term_position = wp_count_terms( 'knowledgebase_cat', array(
-				'hide_empty' => false,
-				'parent'     => 0,
-			) );
 
 			//Extract the form data we received via ajax
-			parse_str( $_POST['form'], $form ); // phpcs:ignore
+			if ( isset( $_POST['form'] ) ) {
+				parse_str( wp_unslash( $_POST['form'] ), $form ); // phpcs:ignore
+			}
 
 			//nonce verification
 			if ( ! isset( $form['nonce'] ) || ! wp_verify_nonce( $form['nonce'], 'bp-kb-nonce' ) ) {
@@ -403,6 +422,12 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 				));
 				wp_die();
 			}
+
+			//Get the product quantity. This value represents the position of the new product
+			$term_position = wp_count_terms( 'knowledgebase_cat', array(
+				'hide_empty' => false,
+				'parent'     => 0,
+			) );
 
 			//Insert new term
 			$term = wp_insert_term(
@@ -491,6 +516,8 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 			* @since 1.0.0
 			*/
 		public function basepress_delete_product() {
+			$this->verify_product_capability();
+
 			//nonce verification
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp-kb-nonce' ) ) {
 				echo 'The kb cannot be deleted';
@@ -498,7 +525,7 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 			}
 
 			//Get product id from ajax POST
-			$product_id = sanitize_text_field( wp_unslash( $_POST['product'] ) );
+			$product_id = isset( $_POST['product'] ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : '';
 
 			//Get the term for this product
 			$term = get_term( $product_id, 'knowledgebase_cat' );
@@ -548,10 +575,14 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 			* @since 1.0.0
 			*/
 		public function basepress_update_product() {
+			$this->verify_product_capability();
+
 			$form = array();
 
 			//Extract the form data we received via ajax
-			parse_str( $_POST['form'], $form ); // phpcs:ignore
+			if ( isset( $_POST['form'] ) ) {
+				parse_str( wp_unslash( $_POST['form'] ), $form ); // phpcs:ignore
+			}
 
 			//nonce verification
 			if ( ! isset( $form['nonce'] ) || ! wp_verify_nonce( $form['nonce'], 'bp-kb-nonce' ) ) {
@@ -666,6 +697,8 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 			* @since 1.0.0
 			*/
 		public function basepress_get_product_data() {
+			$this->verify_product_capability();
+
 			//nonce verification
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp-kb-nonce' ) ) {
 				echo 'The kb cannot be edited';
@@ -673,7 +706,7 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 			}
 
 			//Get product id from ajax POST
-			$product_id = sanitize_text_field( wp_unslash( $_POST['product'] ) );
+			$product_id = isset( $_POST['product'] ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : '';
 
 			//Get the term for this product
 			$term = get_term( $product_id, 'knowledgebase_cat' );
@@ -730,6 +763,8 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 		 * @updated 1.7.6
 		 */
 		public function basepress_update_product_order() {
+			$this->verify_product_capability();
+
 			//nonce verification
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp-kb-nonce' ) ) {
 				echo 'The kb order cannot be Updated';
@@ -737,7 +772,7 @@ if ( ! class_exists( 'Basepress_Products_Page' ) ) {
 			}
 
 			//Get the array of products order
-			$order = $_POST['order']; // phpcs:ignore
+			$order = isset( $_POST['order'] ) && is_array( $_POST['order'] ) ? $_POST['order'] : array(); // phpcs:ignore
 
 			//Update the order of every product
 			foreach ( $order as $position => $term_id ) {
